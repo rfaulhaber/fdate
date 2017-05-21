@@ -20,10 +20,25 @@ const (
 	Fructidor
 )
 
+var months = [...]string {
+	"Vendémiaire",
+	"Brumaire",
+	"Frimaire",
+	"Nivôse",
+	"Pluviôse",
+	"Ventôse",
+	"Germinal",
+	"Floréal",
+	"Prairial",
+	"Messidor",
+	"Thermidor",
+	"Fructidor",
+}
+
 type Weekday int
 
 const (
-	primidi  = 1 + iota
+	primidi = iota
 	duodi
 	tridi
 	quartidi
@@ -34,3 +49,16 @@ const (
 	nonidi
 	décadi
 )
+
+var days = [...]string {
+	"primidi",
+	"duodi",
+	"tridi",
+	"quartidi",
+	"quintidi",
+	"sextidi",
+	"septidi",
+	"octidi",
+	"nonidi",
+	"décadi",
+}

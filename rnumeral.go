@@ -40,12 +40,24 @@ var numeralToNumberMap = map[string]int{
 }
 
 func NewNumeral(number int) *RomanNumeral {
-
+	return &RomanNumeral{number, convertToNumeralString(number)}
 }
 
-func convertToNumeral(number int) {
+func (n *RomanNumeral) String() string {
+	return n.numeral
+}
+
+func (n *RomanNumeral) Number() int {
+	return n.number
+}
+
+func (n *RomanNumeral) Equal(r RomanNumeral) bool {
+	return n.number == r.number && n.numeral == r.numeral
+}
+
+func convertToNumeralString(number int) string {
 	thousands := number / 1000
 	hundreds := (number - (thousands * 1000)) / 100
 	tens := (number - (thousands * 1000) - (hundreds * 100)) / 10
-	ones := ((number - (thousands * 1000) - (hundreds * 100) - (tens * 10)))
+	ones := (number - (thousands * 1000) - (hundreds * 100) - (tens * 10))
 }
