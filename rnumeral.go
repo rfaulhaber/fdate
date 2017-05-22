@@ -1,5 +1,7 @@
 package fdate
 
+import "bytes"
+
 type RomanNumeral struct {
 	number  int
 	numeral string
@@ -39,8 +41,12 @@ var numeralToNumberMap = map[string]int{
 	"I":  1,
 }
 
-func NewNumeral(number int) *RomanNumeral {
+func NumeralFromNumber(number int) *RomanNumeral {
 	return &RomanNumeral{number, convertToNumeralString(number)}
+}
+
+func NumeralFromString(numeral string) *RomanNumeral {
+	return &RomanNumeral{convertToNumber(numeral), numeral}
 }
 
 func (n *RomanNumeral) String() string {
@@ -56,8 +62,24 @@ func (n *RomanNumeral) Equal(r RomanNumeral) bool {
 }
 
 func convertToNumeralString(number int) string {
+	if number > 9999 {
+		return nil
+	}
+
 	thousands := number / 1000
 	hundreds := (number - (thousands * 1000)) / 100
 	tens := (number - (thousands * 1000) - (hundreds * 100)) / 10
-	ones := (number - (thousands * 1000) - (hundreds * 100) - (tens * 10))
+	ones := number - (thousands * 1000) - (hundreds * 100) - (tens * 10)
+
+	var buffer bytes.Buffer
+
+	for i := 0; i < thousands; i++ {
+		buffer.WriteString("M");
+	}
+
+
+}
+
+func convertToNumber(numeral string) int {
+
 }
