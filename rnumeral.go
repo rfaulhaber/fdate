@@ -62,24 +62,37 @@ func (n *RomanNumeral) Equal(r RomanNumeral) bool {
 }
 
 func convertToNumeralString(number int) string {
-	if number > 9999 {
-		return nil
-	}
-
-	thousands := number / 1000
-	hundreds := (number - (thousands * 1000)) / 100
-	tens := (number - (thousands * 1000) - (hundreds * 100)) / 10
-	ones := number - (thousands * 1000) - (hundreds * 100) - (tens * 10)
-
 	var buffer bytes.Buffer
 
-	for i := 0; i < thousands; i++ {
-		buffer.WriteString("M");
+	for key := range numberToNumeralMap {
+		for key <= number {
+			buffer.WriteString(numberToNumeralMap[key])
+			number -= key
+		}
 	}
 
-
+	return buffer.String()
 }
 
 func convertToNumber(numeral string) int {
+	number := 0
 
+	previousEntered := false
+
+	for i, r := range numeral {
+		if num, ok := numeralToNumberMap[string(r) + string(numeral[i + 1])]; ok {
+			number += num
+			previousEntered = true
+		} else {
+			if previousEntered {
+				previousEntered = false
+				break
+			} else {
+				number += numeralToNumberMap[string(r)]
+				previousEntered = false
+			}
+		}
+	}
+
+	return number
 }
