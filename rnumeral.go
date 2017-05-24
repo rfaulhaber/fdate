@@ -1,6 +1,9 @@
 package fdate
 
-import "bytes"
+import (
+	"bytes"
+	"sort"
+)
 
 type RomanNumeral struct {
 	number  int
@@ -64,10 +67,22 @@ func (n *RomanNumeral) Equal(r RomanNumeral) bool {
 func convertToNumeralString(number int) string {
 	var buffer bytes.Buffer
 
+	numberArray := make([]int, 0)
+
 	for key := range numberToNumeralMap {
-		for key <= number {
-			buffer.WriteString(numberToNumeralMap[key])
-			number -= key
+		numberArray = append(numberArray, key)
+	}
+
+	sort.Ints(numberArray)
+
+	if numeral, ok := numberToNumeralMap[number]; ok {
+		buffer.WriteString(numeral)
+	} else {
+		for i := len(numberArray) - 1; i > 0; i-- {
+			for numberArray[i] <= number {
+				buffer.WriteString(numberToNumeralMap[numberArray[i]])
+				number -= numberArray[i]
+			}
 		}
 	}
 
@@ -77,19 +92,18 @@ func convertToNumeralString(number int) string {
 func convertToNumber(numeral string) int {
 	number := 0
 
-	previousEntered := false
+	if len(numeral) == 1 {
+		number = numeralToNumberMap[numeral]
+	} else {
+		for i := 0; i < len(numeral); i += 2 {
+			fr := string(numeral[i])
+			sr := string(numeral[i+1])
+			r := string(fr + sr)
 
-	for i, r := range numeral {
-		if num, ok := numeralToNumberMap[string(r) + string(numeral[i + 1])]; ok {
-			number += num
-			previousEntered = true
-		} else {
-			if previousEntered {
-				previousEntered = false
-				break
+			if num, ok := numeralToNumberMap[r]; ok {
+				number += num
 			} else {
-				number += numeralToNumberMap[string(r)]
-				previousEntered = false
+				number += numeralToNumberMap[fr] + numeralToNumberMap[sr]
 			}
 		}
 	}
