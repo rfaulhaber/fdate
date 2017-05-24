@@ -2,12 +2,6 @@ package fdate
 
 import "time"
 
-type FDate struct {
-	Month int
-	Day   int
-	Year  int
-}
-
 type Month int
 
 const (
@@ -23,6 +17,7 @@ const (
 	Messidor
 	Thermidor
 	Fructidor
+	Complémentaires
 )
 
 var months = [...]string{
@@ -100,17 +95,29 @@ func (day CompDay) String() string {
 	return compDays[day]
 }
 
-func Today() *FDate {
+type Date struct {
+	Year  int
+	Month int
+	Day   int
+}
+
+func Today() *Date {
+	return convertTimeToDate(time.Now())
+}
+
+func NewDate(year int, month int, day int) *Date {
+	// TODO: validation
+	return &Date{year, month, day}
+}
+
+func DateFromTime(time time.Time) *Date {
 
 }
 
-func NewFDate(day int, month int, year int) *FDate {
-}
-
-func NewDateFromTime(time time.Time) *FDate {
+func (date *Date) String() string {
 
 }
 
-func (date *FDate) String() string {
+func convertTimeToDate(time time.Time) *Date {
 
 }
