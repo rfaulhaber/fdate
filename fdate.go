@@ -1,6 +1,10 @@
 package fdate
 
 type FDate struct {
+	Month   string
+	Weekday string
+	DayName string // TODO: import these
+	Year    RomanNumeral
 }
 
 type Month int
