@@ -95,22 +95,22 @@ func (day CompDay) String() string {
 	return compDays[day]
 }
 
+var startLocation, _ = time.LoadLocation("Europe/Paris")
+
+var startDate = time.Date(1792, time.September, 22, 0, 0, 0, 0, startLocation)
+
 type Date struct {
-	Year  int
-	Month int
-	Day   int
+	days int // number of days since the start of the Republican calendar
 }
 
-func Today() *Date {
-	return convertTimeToDate(time.Now())
+func Today() Date {
 }
 
-func NewDate(year int, month int, day int) *Date {
+func NewDate(year int, month int, day int) Date {
 	// TODO: validation
-	return &Date{year, month, day}
 }
 
-func DateFromTime(time time.Time) *Date {
+func Parse(value string) (*Date, error) {
 
 }
 
@@ -118,6 +118,6 @@ func (date *Date) String() string {
 
 }
 
-func convertTimeToDate(time time.Time) *Date {
+func (d *Date) After(u Date) {
 
 }
