@@ -42,7 +42,7 @@ func (month Month) String() string {
 type Weekday int
 
 const (
-	primidi  Weekday = iota
+	primidi Weekday = iota
 	duodi
 	tridi
 	quartidi
@@ -74,7 +74,7 @@ func (day Weekday) String() string {
 type CompDay int
 
 const (
-	vertu       CompDay = iota
+	vertu CompDay = iota
 	génie
 	travail
 	lOpinion
@@ -95,29 +95,52 @@ func (day CompDay) String() string {
 	return compDays[day]
 }
 
+type Duration struct {
+	Days   int
+	Months int
+	Years  int
+}
+
 var startLocation, _ = time.LoadLocation("Europe/Paris")
 
 var startDate = time.Date(1792, time.September, 22, 0, 0, 0, 0, startLocation)
 
 type Date struct {
-	days int // number of days since the start of the Republican calendar
+	// number of days since the start of the Republican calendar
+	days int
 }
 
 func Today() Date {
+	return Date{int((time.Since(startDate) * time.Hour).Hours() / 24)}
 }
 
-func NewDate(year int, month int, day int) Date {
-	// TODO: validation
+func NewDate(year int, month Month, day int) Date {
+	// TODO: treat arguments as those on FRC, convert to gregorian and call datefromtime?
 }
 
-func Parse(value string) (*Date, error) {
+func DateFromTime(time time.Time) Date {
+	return Date{daysSince(startDate, time)}
+}
+
+func Parse(value string) (Date, error) {
 
 }
 
-func (date *Date) String() string {
-
+func (date Date) String() string {
 }
 
-func (d *Date) After(u Date) {
+func (d Date) After(u Date) bool {
+	return d.days > u.days
+}
 
+func (d Date) Before(u Date) bool {
+	return d.days < u.days
+}
+
+func (d Date) Equals(u Date) bool {
+	return d.days == u.days
+}
+
+func daysSince(start time.Time, end time.Time) int {
+	return int(end.Sub(start).Hours() / 24)
 }
