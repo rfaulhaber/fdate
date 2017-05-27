@@ -108,6 +108,12 @@ var startLocation, _ = time.LoadLocation("Europe/Paris")
 
 var startDate = time.Date(1792, time.September, 22, 0, 0, 0, 0, startLocation)
 
+const (
+	daysPer400Years = 365*400 + 97
+	daysPer100Years = 365*100 + 24
+	daysPer4Years   = 365*4 + 1
+)
+
 type Date struct {
 	// number of days since the start of the Republican calendar
 	days int
@@ -118,8 +124,38 @@ func Today() Date {
 }
 
 // returns a Date object where the ints correspond to FRC values and not Gregorian values
-//func NewDate(year int, month Month, day int) Date {
-//}
+func NewDate(year int, month Month, day int) Date {
+	// TODO: add validation
+
+	// Add in days from 400-year cycles.
+	y := uint64(year - 1)
+	n := y / 400
+	y -= 400 * n
+	d := daysPer400Years * n
+
+	// Add in 100-year cycles.
+	n = y / 100
+	y -= 100 * n
+	d += daysPer100Years * n
+
+	// Add in 4-year cycles.
+	n = y / 4
+	y -= 4 * n
+	d += daysPer4Years * n
+
+	// Add in non-leap years.
+	n = y
+	d += 365 * n
+
+	// Add in days before today.
+	//d += uint64(day - 1)
+
+	d += 30 * uint64(daysBefore[month-1])
+
+	date := Date{int(d)}
+	return date
+
+}
 
 func DateFromTime(time time.Time) Date {
 	return Date{daysSince(startDate, time)}
@@ -156,6 +192,11 @@ func (d Date) Day() int {
 	return day
 }
 
+func (d Date) DayOfYear() int {
+	_, _, _, yday := d.date()
+	return yday
+}
+
 //func (d Date) Weekday() Weekday {
 //	// TODO: calculate weekday
 //}
@@ -175,12 +216,6 @@ func (d Date) Equals(u Date) bool {
 func daysSince(start time.Time, end time.Time) int {
 	return int(end.Sub(start).Hours() / 24)
 }
-
-const (
-	daysPer400Years = 365*400 + 97
-	daysPer100Years = 365*100 + 24
-	daysPer4Years   = 365*4 + 1
-)
 
 func (date Date) date() (year int, month Month, day int, yday int) {
 	// this was mostly taken from the code from the method in the time package of the same name
@@ -211,24 +246,44 @@ func (date Date) date() (year int, month Month, day int, yday int) {
 
 	day = yday
 
-	month = Month(day / 30)
-	end := int(daysBefore[month+1])
-	var begin int
-	if day >= end {
-		month++
-		begin = end
+	if day > 360 {
+		month = Complémentaires
+		day = day - 360
 	} else {
-		begin = int(daysBefore[month])
+		month = Month(day / 30)
+		end := int(daysBefore[month+1])
+		var begin int
+		if day >= end {
+			month++
+			begin = end
+		} else {
+			begin = int(daysBefore[month])
+		}
+
+		month++
+		day = day - begin + 1
 	}
 
-	month++
-	day = day - begin + 1
 	return
 }
 
 func isLeap(year int) bool {
 	normalizedYear := year + startDate.Year()
 	return normalizedYear%4 == 0 && (normalizedYear%100 != 0 || normalizedYear%400 == 0)
+}
+
+func norm(hi, lo, base int) (nhi, nlo int) {
+	if lo < 0 {
+		n := (-lo-1)/base + 1
+		hi -= n
+		lo += n * base
+	}
+	if lo >= base {
+		n := lo / base
+		hi += n
+		lo -= n * base
+	}
+	return hi, lo
 }
 
 var daysBefore = [...]int32{
