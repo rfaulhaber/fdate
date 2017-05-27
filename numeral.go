@@ -44,23 +44,23 @@ var numeralToNumberMap = map[string]int{
 	"I":  1,
 }
 
-func NumeralFromNumber(number int) *RomanNumeral {
-	return &RomanNumeral{number, convertToNumeralString(number)}
+func NumeralFromNumber(number int) RomanNumeral {
+	return RomanNumeral{number, convertToNumeralString(number)}
 }
 
-func NumeralFromString(numeral string) *RomanNumeral {
-	return &RomanNumeral{convertToNumber(numeral), numeral}
+func NumeralFromString(numeral string) RomanNumeral {
+	return RomanNumeral{convertToNumber(numeral), numeral}
 }
 
-func (n *RomanNumeral) String() string {
+func (n RomanNumeral) String() string {
 	return n.numeral
 }
 
-func (n *RomanNumeral) Number() int {
+func (n RomanNumeral) Number() int {
 	return n.number
 }
 
-func (n *RomanNumeral) Equal(r RomanNumeral) bool {
+func (n RomanNumeral) Equal(r RomanNumeral) bool {
 	return n.number == r.number && n.numeral == r.numeral
 }
 

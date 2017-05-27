@@ -1,6 +1,8 @@
 package fdate
 
-import "time"
+import (
+	"time"
+)
 
 type Month int
 
@@ -33,6 +35,7 @@ var months = [...]string{
 	"Messidor",
 	"Thermidor",
 	"Fructidor",
+	"Complémentaires",
 }
 
 func (month Month) String() string {
@@ -114,20 +117,48 @@ func Today() Date {
 	return Date{int((time.Since(startDate) * time.Hour).Hours() / 24)}
 }
 
-func NewDate(year int, month Month, day int) Date {
-	// TODO: treat arguments as those on FRC, convert to gregorian and call datefromtime?
-}
+// returns a Date object where the ints correspond to FRC values and not Gregorian values
+//func NewDate(year int, month Month, day int) Date {
+//}
 
 func DateFromTime(time time.Time) Date {
 	return Date{daysSince(startDate, time)}
 }
 
-func Parse(value string) (Date, error) {
+//func Parse(value string) (Date, error) {
+//
+//}
 
+//func (d Date) String() string {
+//}
+
+func (d Date) Date() (year int, month Month, day int) {
+	year, month, day, _ = d.date()
+	return
 }
 
-func (date Date) String() string {
+func (d Date) Year() int {
+	year, _, _, _ := d.date()
+	return year
 }
+
+func (d Date) RomanYear() RomanNumeral {
+	return NumeralFromNumber(d.Year())
+}
+
+func (d Date) Month() Month {
+	_, month, _, _ := d.date()
+	return month
+}
+
+func (d Date) Day() int {
+	_, _, day, _ := d.date()
+	return day
+}
+
+//func (d Date) Weekday() Weekday {
+//	// TODO: calculate weekday
+//}
 
 func (d Date) After(u Date) bool {
 	return d.days > u.days
@@ -143,4 +174,75 @@ func (d Date) Equals(u Date) bool {
 
 func daysSince(start time.Time, end time.Time) int {
 	return int(end.Sub(start).Hours() / 24)
+}
+
+const (
+	daysPer400Years = 365*400 + 97
+	daysPer100Years = 365*100 + 24
+	daysPer4Years   = 365*4 + 1
+)
+
+func (date Date) date() (year int, month Month, day int, yday int) {
+	// this was mostly taken from the code from the method in the time package of the same name
+	// to see the original, see this https://golang.org/src/time/time.go
+
+	d := date.days
+
+	n := d / daysPer400Years
+	y := 400 * n
+	d -= daysPer400Years * n
+
+	n = d / daysPer100Years
+	n -= n >> 2
+	y += 100 * n
+	d -= daysPer100Years * n
+
+	n = d / daysPer4Years
+	y += 4 * n
+	d -= daysPer4Years * n
+
+	n = d / 365
+	n -= n >> 2
+	y += n
+	d -= 365 * n
+
+	year = int(int64(y) + 1)
+	yday = int(d)
+
+	day = yday
+
+	month = Month(day / 30)
+	end := int(daysBefore[month+1])
+	var begin int
+	if day >= end {
+		month++
+		begin = end
+	} else {
+		begin = int(daysBefore[month])
+	}
+
+	month++
+	day = day - begin + 1
+	return
+}
+
+func isLeap(year int) bool {
+	normalizedYear := year + startDate.Year()
+	return normalizedYear%4 == 0 && (normalizedYear%100 != 0 || normalizedYear%400 == 0)
+}
+
+var daysBefore = [...]int32{
+	0,
+	30,
+	2 * 30,
+	3 * 30,
+	4 * 30,
+	5 * 30,
+	6 * 30,
+	7 * 30,
+	8 * 30,
+	9 * 30,
+	10 * 30,
+	11 * 30,
+	12 * 30,
 }
