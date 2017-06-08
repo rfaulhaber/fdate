@@ -246,3 +246,16 @@ func TestDate_NewDate6(t *testing.T) {
 	}
 }
 
+func TestDate_NewDate7(t *testing.T) {
+	expectedDate := Date{81810}
+
+	testYear := 224
+	testMonth := Complémentaires
+	testDay := 2
+
+	actualDate := NewDate(testYear, testMonth, testDay)
+
+	if expectedDate.days != actualDate.days {
+		t.Error("Expected:\t", expectedDate.days, "\tActual:\t", actualDate.days)
+	}
+}

@@ -148,13 +148,14 @@ func NewDate(year int, month Month, day int) Date {
 	d += 365 * n
 
 	// Add in days before today.
-	//d += uint64(day - 1)
-
-	d += 30 * uint64(daysBefore[month-1])
+	if month == 13 {
+		d += uint64(daysBefore[month-1]) + uint64(day)
+	} else {
+		d += uint64(daysBefore[month-1]) + uint64(day-1)
+	}
 
 	date := Date{int(d)}
 	return date
-
 }
 
 func DateFromTime(time time.Time) Date {
