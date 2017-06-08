@@ -198,9 +198,17 @@ func (d Date) DayOfYear() int {
 	return yday
 }
 
-//func (d Date) Weekday() Weekday {
-//	// TODO: calculate weekday
-//}
+func (d Date) Weekday() Weekday {
+	// TODO: deal with complementaires
+	_, month, day, _ := d.date()
+
+	if month == 13 {
+		return 0
+	} else {
+		return Weekday(day % 10)
+	}
+
+}
 
 func (d Date) After(u Date) bool {
 	return d.days > u.days

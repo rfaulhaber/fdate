@@ -15,11 +15,11 @@ func TestDate_Date(t *testing.T) {
 		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
 	}
 
-	if  expectedMonth != actualMonth{
+	if expectedMonth != actualMonth {
 		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
 	}
 
-	if  expectedDay != actualDay{
+	if expectedDay != actualDay {
 		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
 	}
 }
@@ -37,11 +37,11 @@ func TestDate_Date2(t *testing.T) {
 		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
 	}
 
-	if  expectedMonth != actualMonth{
+	if expectedMonth != actualMonth {
 		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
 	}
 
-	if  expectedDay != actualDay{
+	if expectedDay != actualDay {
 		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
 	}
 }
@@ -60,11 +60,11 @@ func TestDate_Date3(t *testing.T) {
 		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
 	}
 
-	if  expectedMonth != actualMonth{
+	if expectedMonth != actualMonth {
 		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
 	}
 
-	if  expectedDay != actualDay{
+	if expectedDay != actualDay {
 		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
 	}
 }
@@ -83,11 +83,11 @@ func TestDate_Date4(t *testing.T) {
 		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
 	}
 
-	if  expectedMonth != actualMonth{
+	if expectedMonth != actualMonth {
 		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
 	}
 
-	if  expectedDay != actualDay{
+	if expectedDay != actualDay {
 		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
 	}
 }
@@ -105,11 +105,11 @@ func TestDate_Date5(t *testing.T) {
 		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
 	}
 
-	if  expectedMonth != actualMonth{
+	if expectedMonth != actualMonth {
 		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
 	}
 
-	if  expectedDay != actualDay{
+	if expectedDay != actualDay {
 		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
 	}
 }
@@ -127,11 +127,11 @@ func TestDate_Date6(t *testing.T) {
 		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
 	}
 
-	if  expectedMonth != actualMonth{
+	if expectedMonth != actualMonth {
 		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
 	}
 
-	if  expectedDay != actualDay{
+	if expectedDay != actualDay {
 		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
 	}
 }
@@ -155,7 +155,7 @@ func TestDate_Month(t *testing.T) {
 
 	actualMonth := testDate.Month()
 
-	if  expectedMonth != actualMonth{
+	if expectedMonth != actualMonth {
 		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
 	}
 }
@@ -257,5 +257,16 @@ func TestDate_NewDate7(t *testing.T) {
 
 	if expectedDate.days != actualDate.days {
 		t.Error("Expected:\t", expectedDate.days, "\tActual:\t", actualDate.days)
+	}
+}
+
+func TestDate_Weekday(t *testing.T) {
+	testDate := Date{82073}
+
+	expectedWeekday := octidi
+	actualWeekday := testDate.Weekday()
+
+	if expectedWeekday != actualWeekday {
+		t.Error("Expected:\t", expectedWeekday, "\tActual:\t", actualWeekday)
 	}
 }
