@@ -121,7 +121,7 @@ type Date struct {
 }
 
 func Today() Date {
-	return Date{int((time.Since(startDate) * time.Hour).Hours() / 24)}
+	return Date{int(time.Since(startDate) / (24 * time.Hour))}
 }
 
 // returns a Date object where the ints correspond to FRC values and not Gregorian values
@@ -275,25 +275,6 @@ func (date Date) date() (year int, month Month, day int, yday int) {
 	}
 
 	return
-}
-
-func isLeap(year int) bool {
-	normalizedYear := year + startDate.Year()
-	return normalizedYear%4 == 0 && (normalizedYear%100 != 0 || normalizedYear%400 == 0)
-}
-
-func norm(hi, lo, base int) (nhi, nlo int) {
-	if lo < 0 {
-		n := (-lo-1)/base + 1
-		hi -= n
-		lo += n * base
-	}
-	if lo >= base {
-		n := lo / base
-		hi += n
-		lo -= n * base
-	}
-	return hi, lo
 }
 
 var daysBefore = [...]int32{

@@ -294,3 +294,14 @@ func TestDate_String(t *testing.T) {
 		t.Error("Expected:\t", expected, "\tActual:\t", actual)
 	}
 }
+
+func TestToday(t *testing.T) {
+	// this is for 10 June 2017 and would need to be updated to pass
+	expected := Date{82075}
+	actual := Today()
+
+	if actual != expected {
+		t.Error("Expected:\t", expected, "\tActual:\t", actual)
+	}
+
+}
