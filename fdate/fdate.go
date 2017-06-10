@@ -2,6 +2,8 @@ package fdate
 
 import (
 	"time"
+	"github.com/rfaulhaber/fdate/numeral"
+	"strconv"
 )
 
 type Month int
@@ -45,7 +47,8 @@ func (month Month) String() string {
 type Weekday int
 
 const (
-	primidi Weekday = iota
+	décadi   Weekday = iota
+	primidi
 	duodi
 	tridi
 	quartidi
@@ -54,7 +57,6 @@ const (
 	septidi
 	octidi
 	nonidi
-	décadi
 )
 
 var days = [...]string{
@@ -166,8 +168,15 @@ func DateFromTime(time time.Time) Date {
 //
 //}
 
-//func (d Date) String() string {
-//}
+func (d Date) String() string {
+	year, month, day, _ := d.date()
+
+	numeralYear := numeral.NumeralFromNumber(year)
+	monthStr := months[month-1]
+	dayStr := strconv.Itoa(day)
+
+	return dayStr + " " + monthStr + " an " + numeralYear.String()
+}
 
 func (d Date) Date() (year int, month Month, day int) {
 	year, month, day, _ = d.date()
@@ -179,8 +188,8 @@ func (d Date) Year() int {
 	return year
 }
 
-func (d Date) RomanYear() RomanNumeral {
-	return NumeralFromNumber(d.Year())
+func (d Date) RomanYear() numeral.RomanNumeral {
+	return numeral.NumeralFromNumber(d.Year())
 }
 
 func (d Date) Month() Month {
