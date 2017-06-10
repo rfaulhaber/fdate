@@ -1,4 +1,4 @@
-package numeral
+package fdate
 
 import (
 	"bytes"
