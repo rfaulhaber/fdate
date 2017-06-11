@@ -4,3 +4,10 @@ Go package similar to the native `time` package except implemented on the
 
 Unlike the `time` package, this one measures dates relative to how many days have passed since
 22 September 1792 and doesn't measure anything smaller than days.
+
+## Install
+
+To install, have Go installed and run
+```
+go get github.com/rfaulhaber/fdate
+```
