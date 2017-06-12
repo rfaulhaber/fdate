@@ -174,7 +174,7 @@ func (d Date) String() string {
 	monthStr := months[month-1]
 	dayStr := strconv.Itoa(day)
 
-	return dayStr + " " + monthStr + " an " + numeralYear.String()
+	return dayStr + " " + monthStr + " " + numeralYear.String()
 }
 
 func (d Date) Date() (year int, month Month, day int) {

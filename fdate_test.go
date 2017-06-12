@@ -287,7 +287,7 @@ func TestDate_Weekday2(t *testing.T) {
 func TestDate_String(t *testing.T) {
 	testDate := Date{82074}
 
-	expected := "21 Prairial an CCXXV"
+	expected := "21 Prairial CCXXV"
 	actual := testDate.String()
 
 	if actual != expected {
