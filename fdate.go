@@ -105,9 +105,8 @@ type Duration struct {
 	Years  int
 }
 
-var startLocation, _ = time.LoadLocation("Europe/Paris")
-
-var startDate = time.Date(1792, time.September, 22, 0, 0, 0, 0, startLocation)
+// this makes the assumption that this calendar starts globally, regardless of timezone, on this date
+var startDate = time.Date(1792, time.September, 22, 0, 0, 0, 0, time.Local)
 
 const (
 	daysPer400Years = 365*400 + 97
@@ -150,9 +149,9 @@ func NewDate(year int, month Month, day int) Date {
 
 	// Add in days before today.
 	if month == 13 {
-		d += uint64(daysBefore[month-1]) + uint64(day)
+		d += uint64(daysBefore(month-1)) + uint64(day)
 	} else {
-		d += uint64(daysBefore[month-1]) + uint64(day-1)
+		d += uint64(daysBefore(month-1)) + uint64(day-1)
 	}
 
 	date := Date{int(d)}
@@ -261,13 +260,13 @@ func (date Date) date() (year int, month Month, day int, yday int) {
 		day = day - 360
 	} else {
 		month = Month(day / 30)
-		end := int(daysBefore[month+1])
+		end := int(daysBefore(month + 1))
 		var begin int
 		if day >= end {
 			month++
 			begin = end
 		} else {
-			begin = int(daysBefore[month])
+			begin = int(daysBefore(month))
 		}
 
 		month++
@@ -277,18 +276,6 @@ func (date Date) date() (year int, month Month, day int, yday int) {
 	return
 }
 
-var daysBefore = [...]int32{
-	0,
-	30,
-	2 * 30,
-	3 * 30,
-	4 * 30,
-	5 * 30,
-	6 * 30,
-	7 * 30,
-	8 * 30,
-	9 * 30,
-	10 * 30,
-	11 * 30,
-	12 * 30,
+func daysBefore(month Month) int {
+	return 30 * int(month)
 }

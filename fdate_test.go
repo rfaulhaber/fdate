@@ -297,7 +297,7 @@ func TestDate_String(t *testing.T) {
 
 func TestToday(t *testing.T) {
 	// this is for 10 June 2017 and would need to be updated to pass
-	expected := Date{82075}
+	expected := Date{82078}
 	actual := Today()
 
 	if actual != expected {
