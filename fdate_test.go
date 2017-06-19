@@ -303,5 +303,26 @@ func TestToday(t *testing.T) {
 	if actual != expected {
 		t.Error("Expected:\t", expected, "\tActual:\t", actual)
 	}
+}
 
+func TestDate_IsLeapYear(t *testing.T) {
+	testDate := Date{4386}
+
+	actual := testDate.IsLeapYear()
+	expected := true
+
+	if actual != expected {
+		t.Error("Expected:\t", expected, "\tActual:\t", actual)
+	}
+}
+
+func TestDate_IsLeapYear2(t *testing.T) {
+	testDate := Date{4020}
+
+	actual := testDate.IsLeapYear()
+	expected := false
+
+	if actual != expected {
+		t.Error("Expected:\t", expected, "\tActual:\t", actual)
+	}
 }

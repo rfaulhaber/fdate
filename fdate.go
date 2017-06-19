@@ -222,6 +222,11 @@ func (d Date) Equals(u Date) bool {
 	return d.days == u.days
 }
 
+func (d Date) IsLeapYear() bool {
+	year := startDate.Year() + d.Year() - 1
+	return year%4 == 0 && (year%100 != 0 || year%400 == 0)
+}
+
 func daysSince(start time.Time, end time.Time) int {
 	return int(end.Sub(start).Hours() / 24)
 }
