@@ -223,7 +223,7 @@ func (d Date) Equals(u Date) bool {
 }
 
 func (d Date) IsLeapYear() bool {
-	year := startDate.Year() + d.Year() - 1
+	year := startDate.Year() + d.Year()
 	return year%4 == 0 && (year%100 != 0 || year%400 == 0)
 }
 

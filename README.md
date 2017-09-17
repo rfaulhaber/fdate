@@ -11,3 +11,5 @@ To install, have Go installed and run
 ```
 go get github.com/rfaulhaber/fdate
 ```
+
+Note that this library employs the Romme rule when dealing with leap years. Historical leap years will not be accurate.
