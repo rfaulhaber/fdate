@@ -1,4 +1,4 @@
-# fdate
+# fdate [![Build Status](https://travis-ci.org/rfaulhaber/fdate.svg?branch=master)](https://travis-ci.org/rfaulhaber/fdate)
 Go package similar to the native `time` package except implemented on the
 [French Republican Calendar](https://en.wikipedia.org/wiki/French_Republican_Calendar). 
 
