@@ -121,7 +121,7 @@ func TestDate_Date6(t *testing.T) {
 
 	expectedYear := 224
 	expectedMonth := Complémentaires
-	expectedDay := 5
+	expectedDay := 6
 
 	actualYear, actualMonth, actualDay := testDate.Date()
 
@@ -336,5 +336,38 @@ func TestDate_IsLeapYear4(t *testing.T) {
 
 	if actual != expected {
 		t.Error("Expected:\t", expected, "\tActual:\t", actual)
+	}
+}
+
+func TestDate_Day(t *testing.T) {
+	testDate := Date{82174}
+
+	actual := testDate.Day()
+	expected := 1
+
+	if actual != expected {
+		t.Error("Expected:\t", expected, "\tActual:\t", actual, "\tDay of year", testDate.DayOfYear())
+	}
+}
+
+func TestDate_Day2(t *testing.T) {
+	testDate := Date{82175}
+
+	actual := testDate.Day()
+	expected := 2
+
+	if actual != expected {
+		t.Error("Expected:\t", expected, "\tActual:\t", actual, "\tDay of year", testDate.DayOfYear())
+	}
+}
+
+func TestDate_Day3(t *testing.T) {
+	testDate := Date{82176}
+
+	actual := testDate.Day()
+	expected := 3
+
+	if actual != expected {
+		t.Error("Expected:\t", expected, "\tActual:\t", actual, "\tDay of year", testDate.DayOfYear())
 	}
 }

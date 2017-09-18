@@ -262,7 +262,7 @@ func (date Date) date() (year int, month Month, day int, yday int) {
 
 	if day > 360 {
 		month = Complémentaires
-		day = day - 360
+		day = day - 360 + 1
 	} else {
 		month = Month(day / 30)
 		end := int(daysBefore(month + 1))
