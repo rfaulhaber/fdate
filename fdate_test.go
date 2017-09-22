@@ -197,7 +197,7 @@ func TestDate_Year3(t *testing.T) {
 }
 
 func TestDate_RomanYear(t *testing.T) {
-	testDate := Date{82178}
+	testDate := Date{82179}
 
 	expectedYear := "CCXXVI"
 	expectedYearInt := 226
