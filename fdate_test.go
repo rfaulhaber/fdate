@@ -138,6 +138,28 @@ func TestDate_Date6(t *testing.T) {
 	}
 }
 
+func TestDate_Date7(t *testing.T) {
+	testDate := Date{82179}
+
+	expectedYear := 226
+	expectedMonth := Vendémiaire
+	expectedDay := 1
+
+	actualYear, actualMonth, actualDay := testDate.Date()
+
+	if expectedYear != actualYear {
+		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
+	}
+
+	if expectedMonth != actualMonth {
+		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
+	}
+
+	if expectedDay != actualDay {
+		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
+	}
+}
+
 func TestDate_Year(t *testing.T) {
 	testDate := Date{673}
 
@@ -148,6 +170,49 @@ func TestDate_Year(t *testing.T) {
 	if expectedYear != actualYear {
 		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
 	}
+}
+
+func TestDate_Year2(t *testing.T) {
+	testDate := Date{82179}
+
+	expectedYear := 226
+
+	actualYear := testDate.Year()
+
+	if expectedYear != actualYear {
+		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
+	}
+}
+
+func TestDate_Year3(t *testing.T) {
+	testDate := Date{82178}
+
+	expectedYear := 225
+
+	actualYear := testDate.Year()
+
+	if expectedYear != actualYear {
+		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
+	}
+}
+
+func TestDate_RomanYear(t *testing.T) {
+	testDate := Date{82178}
+
+	expectedYear := "CCXXVI"
+	expectedYearInt := 226
+
+	actualYearString := testDate.RomanYear().String()
+	actualYearInt := testDate.RomanYear().Number()
+
+	if expectedYear != actualYearString {
+		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYearString)
+	}
+
+	if expectedYearInt != actualYearInt {
+		t.Error("Expected:\t", expectedYearInt, "\tActual:\t", actualYearInt)
+	}
+
 }
 
 func TestDate_Month(t *testing.T) {
