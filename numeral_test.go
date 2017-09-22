@@ -59,3 +59,43 @@ func TestNumeralFromNumber3(t *testing.T) {
 		t.Error("Expected ", expected, " got ", actual.numeral)
 	}
 }
+
+func TestNumeralFromNumber4(t *testing.T) {
+	actual := NumeralFromNumber(225)
+
+	expected := "CCXXV"
+
+	if actual.numeral != expected {
+		t.Error("Expected ", expected, " got ", actual.numeral)
+	}
+}
+
+func TestNumeralFromNumber5(t *testing.T) {
+	actual := NumeralFromNumber(226)
+
+	expected := "CCXXVI"
+
+	if actual.numeral != expected {
+		t.Error("Expected ", expected, " got ", actual.numeral)
+	}
+}
+
+func TestNumeralFromNumber6(t *testing.T) {
+	actual := NumeralFromNumber(1)
+
+	expected := "I"
+
+	if actual.numeral != expected {
+		t.Error("Expected ", expected, " got ", actual.numeral)
+	}
+}
+
+func TestNumeralFromNumber7(t *testing.T) {
+	actual := NumeralFromNumber(11)
+
+	expected := "XI"
+
+	if actual.numeral != expected {
+		t.Error("Expected ", expected, " got ", actual.numeral)
+	}
+}

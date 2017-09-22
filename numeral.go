@@ -84,6 +84,10 @@ func convertToNumeralString(number int) string {
 				number -= numberArray[i]
 			}
 		}
+
+		if number == 1 {
+			buffer.WriteString(numberToNumeralMap[1])
+		}
 	}
 
 	return buffer.String()
