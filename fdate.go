@@ -228,7 +228,7 @@ func (d Date) IsLeapYear() bool {
 }
 
 func daysSince(start time.Time, end time.Time) int {
-	return int(end.Sub(start).Hours() / 24)
+	return int(end.Sub(start) / (24 * time.Hour))
 }
 
 func (date Date) date() (year int, month Month, day int, yday int) {

@@ -2,6 +2,7 @@ package fdate
 
 import (
 	"testing"
+	"time"
 )
 
 func TestDate_Date(t *testing.T) {
@@ -434,5 +435,31 @@ func TestDate_Day3(t *testing.T) {
 
 	if actual != expected {
 		t.Error("Expected:\t", expected, "\tActual:\t", actual, "\tDay of year", testDate.DayOfYear())
+	}
+}
+
+func TestDate_DateFromTime(t *testing.T) {
+	date := time.Date(2018, time.May, 21, 4, 0, 0, 0, time.Local)
+
+	testDate := DateFromTime(date)
+
+	expectedStr := "2 Prairial CCXXVI"
+	actualStr := testDate.String()
+
+	if actualStr != expectedStr {
+		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate", date.String())
+	}
+}
+
+func TestDate_DateFromTime2(t *testing.T) {
+	date := time.Date(1792, time.September, 22, 0, 0, 0, 0, time.Local)
+
+	testDate := DateFromTime(date)
+
+	expectedStr := "1 Vendémiaire I"
+	actualStr := testDate.String()
+
+	if actualStr != expectedStr {
+		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate", date.String())
 	}
 }
