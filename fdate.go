@@ -72,7 +72,7 @@ var days = [...]string{
 }
 
 func (day Weekday) String() string {
-	return days[day]
+	return days[day-1]
 }
 
 type CompDay int
@@ -96,7 +96,7 @@ var compDays = [...]string{
 }
 
 func (day CompDay) String() string {
-	return compDays[day]
+	return compDays[day-1]
 }
 
 type Duration struct {

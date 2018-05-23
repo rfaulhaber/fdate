@@ -350,6 +350,39 @@ func TestDate_Weekday2(t *testing.T) {
 	}
 }
 
+func TestDate_Weekday3(t *testing.T) {
+	testDate := Date{82075}
+
+	expectedWeekday := duodi
+	actualWeekday := testDate.Weekday()
+
+	if expectedWeekday != actualWeekday {
+		t.Error("Expected:\t", expectedWeekday, "\tActual:\t", actualWeekday)
+	}
+}
+
+func TestDate_WeekdayString(t *testing.T) {
+	testDate := NewDate(226, Prairial, 3)
+
+	expectedWeekday := "tridi"
+	actualWeekday := testDate.Weekday().String()
+
+	if expectedWeekday != actualWeekday {
+		t.Error("Expected:\t", expectedWeekday, "\tActual:\t", actualWeekday)
+	}
+}
+
+func TestDate_WeekdayString2(t *testing.T) {
+	testDate := NewDate(226, Prairial, 2)
+
+	expectedWeekday := "duodi"
+	actualWeekday := testDate.Weekday().String()
+
+	if expectedWeekday != actualWeekday {
+		t.Error("Expected:\t", expectedWeekday, "\tActual:\t", actualWeekday)
+	}
+}
+
 func TestDate_String(t *testing.T) {
 	testDate := Date{82074}
 
@@ -461,5 +494,16 @@ func TestDate_DateFromTime2(t *testing.T) {
 
 	if actualStr != expectedStr {
 		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate", date.String())
+	}
+}
+
+func TestCompDay_String(t *testing.T) {
+	testDate := CompDay(1)
+
+	expectedStr := "La Fête de la Vertu"
+	actualStr := testDate.String()
+
+	if actualStr != expectedStr {
+		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr,)
 	}
 }
