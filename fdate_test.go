@@ -504,7 +504,7 @@ func TestCompDay_String(t *testing.T) {
 	actualStr := testDate.String()
 
 	if actualStr != expectedStr {
-		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr,)
+		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr)
 	}
 }
 
@@ -515,6 +515,6 @@ func TestMonth_String(t *testing.T) {
 	actualStr := testDate.String()
 
 	if actualStr != expectedStr {
-		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr,)
+		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr)
 	}
 }
