@@ -46,8 +46,7 @@ func (month Month) String() string {
 type Weekday int
 
 const (
-	décadi Weekday = iota
-	primidi
+	primidi Weekday = iota
 	duodi
 	tridi
 	quartidi
@@ -56,6 +55,7 @@ const (
 	septidi
 	octidi
 	nonidi
+	décadi
 )
 
 var days = [...]string{
@@ -72,7 +72,7 @@ var days = [...]string{
 }
 
 func (day Weekday) String() string {
-	return days[day-1]
+	return days[day]
 }
 
 type CompDay int
@@ -96,7 +96,7 @@ var compDays = [...]string{
 }
 
 func (day CompDay) String() string {
-	return compDays[day-1]
+	return compDays[day]
 }
 
 type Duration struct {
@@ -206,8 +206,13 @@ func (d Date) DayOfYear() int {
 }
 
 func (d Date) Weekday() Weekday {
-	_, _, day, _ := d.date()
-	return Weekday(day % 10)
+	_, _, day, yday := d.date()
+
+	if d.Month() < 13 {
+		return Weekday(yday % 10)
+	} else {
+		return Weekday(day % 10)
+	}
 }
 
 func (d Date) After(u Date) bool {

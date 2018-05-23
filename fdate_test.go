@@ -329,9 +329,9 @@ func TestDate_NewDate7(t *testing.T) {
 }
 
 func TestDate_Weekday(t *testing.T) {
-	testDate := Date{82073}
+	testDate := NewDate(226, Prairial, 1)
 
-	expectedWeekday := décadi
+	expectedWeekday := primidi
 	actualWeekday := testDate.Weekday()
 
 	if expectedWeekday != actualWeekday {
@@ -361,7 +361,7 @@ func TestDate_Weekday3(t *testing.T) {
 	}
 }
 
-func TestDate_WeekdayString(t *testing.T) {
+func TestWeekday_String(t *testing.T) {
 	testDate := NewDate(226, Prairial, 3)
 
 	expectedWeekday := "tridi"
@@ -372,7 +372,7 @@ func TestDate_WeekdayString(t *testing.T) {
 	}
 }
 
-func TestDate_WeekdayString2(t *testing.T) {
+func TestWeekday_String2(t *testing.T) {
 	testDate := NewDate(226, Prairial, 2)
 
 	expectedWeekday := "duodi"
@@ -498,9 +498,20 @@ func TestDate_DateFromTime2(t *testing.T) {
 }
 
 func TestCompDay_String(t *testing.T) {
-	testDate := CompDay(1)
+	testDate := vertu
 
 	expectedStr := "La Fête de la Vertu"
+	actualStr := testDate.String()
+
+	if actualStr != expectedStr {
+		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr,)
+	}
+}
+
+func TestMonth_String(t *testing.T) {
+	testDate := Pluviôse
+
+	expectedStr := "Pluviôse"
 	actualStr := testDate.String()
 
 	if actualStr != expectedStr {
