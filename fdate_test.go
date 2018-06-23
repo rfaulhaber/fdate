@@ -518,3 +518,47 @@ func TestMonth_String(t *testing.T) {
 		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr)
 	}
 }
+
+func TestRuralDay(t *testing.T) {
+	testDate := NewDate(226, Messidor, 5)
+
+	expectedStr := "Mulet"
+	actualStr := testDate.RuralDay()
+
+	if actualStr != expectedStr {
+		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr)
+	}
+}
+
+func TestRuralDay2(t *testing.T) {
+	testDate := NewDate(1, Vendémiaire, 1)
+
+	expectedStr := "Raisin"
+	actualStr := testDate.RuralDay()
+
+	if actualStr != expectedStr {
+		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate")
+	}
+}
+
+func TestRuralDay3(t *testing.T) {
+	testDate := NewDate(1, Complémentaires, 1)
+
+	expectedStr := ""
+	actualStr := testDate.RuralDay()
+
+	if actualStr != expectedStr {
+		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate")
+	}
+}
+
+func TestRuralDay4(t *testing.T) {
+	testDate := NewDate(226, Fructidor, 30)
+
+	expectedStr := "Panier"
+	actualStr := testDate.RuralDay()
+
+	if actualStr != expectedStr {
+		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate")
+	}
+}
