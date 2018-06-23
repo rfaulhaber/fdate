@@ -123,6 +123,7 @@ type Date struct {
 	days int
 }
 
+// returns the Date object for today
 func Today() Date {
 	return Date{int(time.Since(startDate) / (24 * time.Hour))}
 }
@@ -162,10 +163,12 @@ func NewDate(year int, month Month, day int) Date {
 	return date
 }
 
+// returns the FRC date from a standard Golang time object
 func DateFromTime(time time.Time) Date {
 	return Date{daysSince(startDate, time)}
 }
 
+// returns the string representation of the date, in "day month year" format
 func (d Date) String() string {
 	year, month, day, _ := d.date()
 
@@ -176,6 +179,7 @@ func (d Date) String() string {
 	return dayStr + " " + monthStr + " " + numeralYear.String()
 }
 
+// returns the Rural Day name of the date object
 func (d Date) RuralDay() string {
 	_, _, _, yday := d.date()
 
@@ -186,35 +190,42 @@ func (d Date) RuralDay() string {
 	return ruralNames[yday]
 }
 
+// returns the year, month, and day of the object as ints
 func (d Date) Date() (year int, month Month, day int) {
 	year, month, day, _ = d.date()
 	return
 }
 
+// returns the year
 func (d Date) Year() int {
 	year, _, _, _ := d.date()
 	return year
 }
 
+// returns the year as a roman numeral
 func (d Date) RomanYear() RomanNumeral {
 	return NumeralFromNumber(d.Year())
 }
 
+// returns the month
 func (d Date) Month() Month {
 	_, month, _, _ := d.date()
 	return month
 }
 
+// returns the day
 func (d Date) Day() int {
 	_, _, day, _ := d.date()
 	return day
 }
 
+// returns the day of the year
 func (d Date) DayOfYear() int {
 	_, _, _, yday := d.date()
 	return yday
 }
 
+// returns the day of the week
 func (d Date) Weekday() Weekday {
 	_, _, day, yday := d.date()
 
