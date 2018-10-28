@@ -1,7 +1,6 @@
 package fdate
 
 import (
-	"bytes"
 	"sort"
 )
 
@@ -65,9 +64,9 @@ func (n RomanNumeral) Equal(r RomanNumeral) bool {
 }
 
 func convertToNumeralString(number int) string {
-	var buffer bytes.Buffer
+	outStr := ""
 
-	numberArray := make([]int, 0)
+	var numberArray []int
 
 	for key := range numberToNumeralMap {
 		numberArray = append(numberArray, key)
@@ -76,21 +75,21 @@ func convertToNumeralString(number int) string {
 	sort.Ints(numberArray)
 
 	if numeral, ok := numberToNumeralMap[number]; ok {
-		buffer.WriteString(numeral)
+		outStr += numeral
 	} else {
-		for i := len(numberArray) - 1; i > 0; i-- {
+		for i := len(numberArray) - 1; i >= 0; i-- {
 			for numberArray[i] <= number {
-				buffer.WriteString(numberToNumeralMap[numberArray[i]])
+				outStr += numberToNumeralMap[numberArray[i]]
 				number -= numberArray[i]
 			}
 		}
 
 		if number == 1 {
-			buffer.WriteString(numberToNumeralMap[1])
+			outStr += numberToNumeralMap[1]
 		}
 	}
 
-	return buffer.String()
+	return outStr
 }
 
 func convertToNumber(numeral string) int {

@@ -1,101 +1,78 @@
 package fdate
 
-import "testing"
+import (
+	"github.com/stretchr/testify/assert"
+	"testing"
+)
 
 func TestNumeralFromString(t *testing.T) {
-	actual := NumeralFromString("V")
-
-	if actual.number != 5 {
-		t.Error("Expected 5, got ", actual.number)
+	testCases := []struct{
+		numeralStr string
+		expectedInt int
+	}{
+		{
+			numeralStr: "V",
+			expectedInt: 5,
+		},
+		{
+			numeralStr: "XXIX",
+			expectedInt: 29,
+		},
+		{
+			numeralStr: "IV",
+			expectedInt: 4,
+		},
 	}
-}
 
-func TestNumeralFromString2(t *testing.T) {
-	actual := NumeralFromString("XXIX")
+	for _, tc := range testCases {
+		actual := NumeralFromString(tc.numeralStr)
 
-	expected := 29
-
-	if actual.number != expected {
-		t.Error("Expected ", expected, " got ", actual.number)
-	}
-}
-
-func TestNumeralFromString3(t *testing.T) {
-	actual := NumeralFromString("IV")
-
-	expected := 4
-
-	if actual.number != 4 {
-		t.Error("Expected ", expected, " got ", actual.number)
+		assert.Equal(t, tc.expectedInt, actual.number)
 	}
 }
 
 func TestNumeralFromNumber(t *testing.T) {
-	actual := NumeralFromNumber(4)
-
-	expected := "IV"
-
-	if actual.numeral != expected {
-		t.Error("Expected ", expected, " got ", actual.numeral)
+	testCases := []struct{
+		testInt int
+		expectedStr string
+	}{
+		{
+			testInt: 4,
+			expectedStr: "IV",
+		},
+		{
+			testInt:24,
+			expectedStr:"XXIV",
+		},
+		{
+			testInt:109,
+			expectedStr:"CIX",
+		},
+		{
+			testInt:225,
+			expectedStr:"CCXXV",
+		},
+		{
+			testInt:226,
+			expectedStr:"CCXXVI",
+		},
+		{
+			testInt:227,
+			expectedStr:"CCXXVII",
+		},
+		{
+			testInt:1,
+			expectedStr:"I",
+		},
+		{
+			testInt:11,
+			expectedStr:"XI",
+		},
 	}
-}
 
-func TestNumeralFromNumber2(t *testing.T) {
-	actual := NumeralFromNumber(24)
+	for _, tc := range testCases {
+		actual := NumeralFromNumber(tc.testInt)
 
-	expected := "XXIV"
-
-	if actual.numeral != expected {
-		t.Error("Expected ", expected, " got ", actual.numeral)
-	}
-}
-
-func TestNumeralFromNumber3(t *testing.T) {
-	actual := NumeralFromNumber(109)
-
-	expected := "CIX"
-
-	if actual.numeral != expected {
-		t.Error("Expected ", expected, " got ", actual.numeral)
-	}
-}
-
-func TestNumeralFromNumber4(t *testing.T) {
-	actual := NumeralFromNumber(225)
-
-	expected := "CCXXV"
-
-	if actual.numeral != expected {
-		t.Error("Expected ", expected, " got ", actual.numeral)
-	}
-}
-
-func TestNumeralFromNumber5(t *testing.T) {
-	actual := NumeralFromNumber(226)
-
-	expected := "CCXXVI"
-
-	if actual.numeral != expected {
-		t.Error("Expected ", expected, " got ", actual.numeral)
-	}
-}
-
-func TestNumeralFromNumber6(t *testing.T) {
-	actual := NumeralFromNumber(1)
-
-	expected := "I"
-
-	if actual.numeral != expected {
-		t.Error("Expected ", expected, " got ", actual.numeral)
-	}
-}
-
-func TestNumeralFromNumber7(t *testing.T) {
-	actual := NumeralFromNumber(11)
-
-	expected := "XI"
-
-	if actual.numeral != expected {
-		t.Error("Expected ", expected, " got ", actual.numeral)
+		assert.Equal(t, tc.expectedStr, actual.String())
 	}
 }

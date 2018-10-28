@@ -1,499 +1,382 @@
 package fdate
 
 import (
+	"github.com/stretchr/testify/assert"
 	"testing"
 	"time"
 )
 
 func TestDate_Date(t *testing.T) {
-	testDate := Date{82061}
+	testCases := []struct {
+		testDate      Date
+		expectedYear  int
+		expectedMonth Month
+		expectedDay   int
+	}{
+		{
+			testDate:      Date{0},
+			expectedYear:  1,
+			expectedMonth: Vendémiaire,
+			expectedDay:   1,
+		},
+		{
 
-	expectedYear := 225
-	expectedMonth := Prairial
-	expectedDay := 8
+			testDate: Date{2603},
 
-	actualYear, actualMonth, actualDay := testDate.Date()
+			// The 18th Brumaire, when Napoleon staged his famous coup, ending the Revolution
+			expectedYear:  8,
+			expectedMonth: Brumaire,
+			expectedDay:   18,
+		},
+		{
+			testDate: Date{673},
 
-	if expectedYear != actualYear {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
+			// The 9th Thermidor, when the Convention turned against Robespierre
+			expectedYear:  2,
+			expectedMonth: Thermidor,
+			expectedDay:   9,
+		},
+		{
+			testDate: Date{81814},
+
+			expectedYear:  225,
+			expectedMonth: Vendémiaire,
+			expectedDay:   1,
+		},
+		{
+			testDate: Date{81850},
+
+			expectedYear:  225,
+			expectedMonth: Brumaire,
+			expectedDay:   7,
+		},
+		{
+			testDate: Date{82215},
+
+			expectedYear:  226,
+			expectedMonth: Brumaire,
+			expectedDay:   7,
+		},
+		{
+			testDate: Date{82580},
+
+			expectedYear:  227,
+			expectedMonth: Brumaire,
+			expectedDay:   7,
+		},
 	}
 
-	if expectedMonth != actualMonth {
-		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
-	}
+	for _, tc := range testCases {
+		actualYear, actualMonth, actualDay := tc.testDate.Date()
 
-	if expectedDay != actualDay {
-		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
-	}
-}
-
-func TestDate_Date2(t *testing.T) {
-	testDate := Date{0}
-
-	expectedYear := 1
-	expectedMonth := Vendémiaire
-	expectedDay := 1
-
-	actualYear, actualMonth, actualDay := testDate.Date()
-
-	if expectedYear != actualYear {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
-	}
-
-	if expectedMonth != actualMonth {
-		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
-	}
-
-	if expectedDay != actualDay {
-		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
-	}
-}
-
-func TestDate_Date3(t *testing.T) {
-	testDate := Date{2603}
-
-	// The 18th Brumaire, when Napoleon staged his famous coup, ending the Revolution
-	expectedYear := 8
-	expectedMonth := Brumaire
-	expectedDay := 18
-
-	actualYear, actualMonth, actualDay := testDate.Date()
-
-	if expectedYear != actualYear {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
-	}
-
-	if expectedMonth != actualMonth {
-		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
-	}
-
-	if expectedDay != actualDay {
-		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
-	}
-}
-
-func TestDate_Date4(t *testing.T) {
-	testDate := Date{673}
-
-	// The 9th Thermidor, when the Convention turned against Robespierre
-	expectedYear := 2
-	expectedMonth := Thermidor
-	expectedDay := 9
-
-	actualYear, actualMonth, actualDay := testDate.Date()
-
-	if expectedYear != actualYear {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
-	}
-
-	if expectedMonth != actualMonth {
-		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
-	}
-
-	if expectedDay != actualDay {
-		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
-	}
-}
-
-func TestDate_Date5(t *testing.T) {
-	testDate := Date{81814}
-
-	expectedYear := 225
-	expectedMonth := Vendémiaire
-	expectedDay := 1
-
-	actualYear, actualMonth, actualDay := testDate.Date()
-
-	if expectedYear != actualYear {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
-	}
-
-	if expectedMonth != actualMonth {
-		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
-	}
-
-	if expectedDay != actualDay {
-		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
-	}
-}
-
-func TestDate_Date6(t *testing.T) {
-	testDate := Date{81813}
-
-	expectedYear := 224
-	expectedMonth := Complémentaires
-	expectedDay := 6
-
-	actualYear, actualMonth, actualDay := testDate.Date()
-
-	if expectedYear != actualYear {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
-	}
-
-	if expectedMonth != actualMonth {
-		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
-	}
-
-	if expectedDay != actualDay {
-		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
-	}
-}
-
-func TestDate_Date7(t *testing.T) {
-	testDate := Date{82179}
-
-	expectedYear := 226
-	expectedMonth := Vendémiaire
-	expectedDay := 1
-
-	actualYear, actualMonth, actualDay := testDate.Date()
-
-	if expectedYear != actualYear {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
-	}
-
-	if expectedMonth != actualMonth {
-		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
-	}
-
-	if expectedDay != actualDay {
-		t.Error("Expected:\t", expectedDay, "\tActual:\t", actualDay)
+		assert.Equal(t, tc.expectedYear, actualYear)
+		assert.Equal(t, tc.expectedMonth, actualMonth)
+		assert.Equal(t, tc.expectedDay, actualDay)
 	}
 }
 
 func TestDate_Year(t *testing.T) {
-	testDate := Date{673}
-
-	expectedYear := 2
-
-	actualYear := testDate.Year()
-
-	if expectedYear != actualYear {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
+	testCases := []struct {
+		testDate     Date
+		expectedYear int
+	}{
+		{
+			testDate:     Date{673},
+			expectedYear: 2,
+		},
+		{
+			testDate:     Date{82580},
+			expectedYear: 227,
+		},
+		{
+			testDate:     Date{82215},
+			expectedYear: 226,
+		},
+		{
+			testDate:     Date{81850},
+			expectedYear: 225,
+		},
 	}
-}
 
-func TestDate_Year2(t *testing.T) {
-	testDate := Date{82179}
+	for _, tc := range testCases {
+		actualYear := tc.testDate.Year()
 
-	expectedYear := 226
-
-	actualYear := testDate.Year()
-
-	if expectedYear != actualYear {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
-	}
-}
-
-func TestDate_Year3(t *testing.T) {
-	testDate := Date{82178}
-
-	expectedYear := 225
-
-	actualYear := testDate.Year()
-
-	if expectedYear != actualYear {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYear)
+		if tc.expectedYear != actualYear {
+			t.Error("Expected:\t", tc.expectedYear, "\tActual:\t", actualYear)
+		}
 	}
 }
 
 func TestDate_RomanYear(t *testing.T) {
-	testDate := Date{82179}
-
-	expectedYear := "CCXXVI"
-	expectedYearInt := 226
-
-	actualYearString := testDate.RomanYear().String()
-	actualYearInt := testDate.RomanYear().Number()
-
-	if expectedYear != actualYearString {
-		t.Error("Expected:\t", expectedYear, "\tActual:\t", actualYearString)
+	testCases := []struct {
+		testDate           Date
+		expectedYearString string
+		expectedYearInt    int
+	}{
+		{
+			testDate:           Date{82179},
+			expectedYearString: "CCXXVI",
+			expectedYearInt:    226,
+		},
 	}
 
-	if expectedYearInt != actualYearInt {
-		t.Error("Expected:\t", expectedYearInt, "\tActual:\t", actualYearInt)
-	}
+	for _, tc := range testCases {
+		actualYearString := tc.testDate.RomanYear().String()
+		actualYearInt := tc.testDate.RomanYear().Number()
 
+		if tc.expectedYearString != actualYearString {
+			t.Error("Expected:\t", tc.expectedYearString, "\tActual:\t", actualYearString)
+		}
+
+		if tc.expectedYearInt != actualYearInt {
+			t.Error("Expected:\t", tc.expectedYearInt, "\tActual:\t", actualYearInt)
+		}
+	}
 }
 
 func TestDate_Month(t *testing.T) {
-	testDate := Date{2603}
+	testCases := []struct {
+		testDate      Date
+		expectedMonth Month
+	}{
+		{
+			testDate:      Date{2603},
+			expectedMonth: Brumaire,
+		},
+	}
 
-	expectedMonth := Brumaire
+	for _, tc := range testCases {
+		actualMonth := tc.testDate.Month()
 
-	actualMonth := testDate.Month()
-
-	if expectedMonth != actualMonth {
-		t.Error("Expected:\t", expectedMonth, "\tActual:\t", actualMonth)
+		if tc.expectedMonth != actualMonth {
+			t.Error("Expected:\t", tc.expectedMonth, "\tActual:\t", actualMonth)
+		}
 	}
 }
 
 func TestDate_NewDate(t *testing.T) {
-	expectedDate := Date{82061}
+	testCases := []struct {
+		testYear     int
+		testMonth    Month
+		testDay      int
+		expectedDate Date
+	}{
+		{
+			expectedDate: Date{82061},
 
-	testYear := 225
-	testMonth := Prairial
-	testDay := 8
+			testYear:  225,
+			testMonth: Prairial,
+			testDay:   8,
+		},
+		{
+			expectedDate: Date{0},
 
-	actualDate := NewDate(testYear, testMonth, testDay)
+			testYear:  1,
+			testMonth: Vendémiaire,
+			testDay:   1,
+		},
+		{
+			expectedDate: Date{2603},
 
-	if expectedDate.days != actualDate.days {
-		t.Error("Expected:\t", expectedDate.days, "\tActual:\t", actualDate.days)
+			// The 18th Brumaire, when Napoleon staged his famous coup, ending the Revolution
+			testYear:  8,
+			testMonth: Brumaire,
+			testDay:   18,
+		},
+		{
+			expectedDate: Date{673},
+
+			// The 9th Thermidor, when the Convention turned against Robespierre
+			testYear:  2,
+			testMonth: Thermidor,
+			testDay:   9,
+		},
+		{
+			expectedDate: Date{81814},
+
+			testYear:  225,
+			testMonth: Vendémiaire,
+			testDay:   1,
+		},
+		{
+			expectedDate: Date{81813},
+
+			testYear:  224,
+			testMonth: Complémentaires,
+			testDay:   5,
+		},
+		{
+			expectedDate: Date{81810},
+
+			testYear:  224,
+			testMonth: Complémentaires,
+			testDay:   2,
+		},
 	}
-}
 
-func TestDate_NewDate2(t *testing.T) {
-	expectedDate := Date{0}
+	for _, tc := range testCases {
+		actualDate := NewDate(tc.testYear, tc.testMonth, tc.testDay)
 
-	testYear := 1
-	testMonth := Vendémiaire
-	testDay := 1
-
-	actualDate := NewDate(testYear, testMonth, testDay)
-
-	if expectedDate.days != actualDate.days {
-		t.Error("Expected:\t", expectedDate.days, "\tActual:\t", actualDate.days)
-	}
-}
-
-func TestDate_NewDate3(t *testing.T) {
-	expectedDate := Date{2603}
-
-	// The 18th Brumaire, when Napoleon staged his famous coup, ending the Revolution
-	testYear := 8
-	testMonth := Brumaire
-	testDay := 18
-
-	actualDate := NewDate(testYear, testMonth, testDay)
-
-	if expectedDate.days != actualDate.days {
-		t.Error("Expected:\t", expectedDate.days, "\tActual:\t", actualDate.days)
-	}
-}
-
-func TestDate_NewDate4(t *testing.T) {
-	expectedDate := Date{673}
-
-	// The 9th Thermidor, when the Convention turned against Robespierre
-	testYear := 2
-	testMonth := Thermidor
-	testDay := 9
-
-	actualDate := NewDate(testYear, testMonth, testDay)
-
-	if expectedDate.days != actualDate.days {
-		t.Error("Expected:\t", expectedDate.days, "\tActual:\t", actualDate.days)
-	}
-}
-
-func TestDate_NewDate5(t *testing.T) {
-	expectedDate := Date{81814}
-
-	testYear := 225
-	testMonth := Vendémiaire
-	testDay := 1
-
-	actualDate := NewDate(testYear, testMonth, testDay)
-
-	if expectedDate.days != actualDate.days {
-		t.Error("Expected:\t", expectedDate.days, "\tActual:\t", actualDate.days)
-	}
-}
-
-func TestDate_NewDate6(t *testing.T) {
-	expectedDate := Date{81813}
-
-	testYear := 224
-	testMonth := Complémentaires
-	testDay := 5
-
-	actualDate := NewDate(testYear, testMonth, testDay)
-
-	if expectedDate.days != actualDate.days {
-		t.Error("Expected:\t", expectedDate.days, "\tActual:\t", actualDate.days)
-	}
-}
-
-func TestDate_NewDate7(t *testing.T) {
-	expectedDate := Date{81810}
-
-	testYear := 224
-	testMonth := Complémentaires
-	testDay := 2
-
-	actualDate := NewDate(testYear, testMonth, testDay)
-
-	if expectedDate.days != actualDate.days {
-		t.Error("Expected:\t", expectedDate.days, "\tActual:\t", actualDate.days)
+		if tc.expectedDate.days != actualDate.days {
+			t.Error("Expected:\t", tc.expectedDate.days, "\tActual:\t", actualDate.days)
+		}
 	}
 }
 
 func TestDate_Weekday(t *testing.T) {
-	testDate := NewDate(226, Prairial, 1)
-
-	expectedWeekday := primidi
-	actualWeekday := testDate.Weekday()
-
-	if expectedWeekday != actualWeekday {
-		t.Error("Expected:\t", expectedWeekday, "\tActual:\t", actualWeekday)
+	testCases := []struct {
+		testDate        Date
+		expectedWeekday Weekday
+	}{
+		{
+			testDate:        NewDate(226, Prairial, 1),
+			expectedWeekday: primidi,
+		},
+		{
+			testDate:        Date{82074},
+			expectedWeekday: primidi,
+		},
+		{
+			testDate:        Date{82075},
+			expectedWeekday: duodi,
+		},
 	}
-}
 
-func TestDate_Weekday2(t *testing.T) {
-	testDate := Date{82074}
+	for _, tc := range testCases {
+		actualWeekday := tc.testDate.Weekday()
 
-	expectedWeekday := primidi
-	actualWeekday := testDate.Weekday()
-
-	if expectedWeekday != actualWeekday {
-		t.Error("Expected:\t", expectedWeekday, "\tActual:\t", actualWeekday)
-	}
-}
-
-func TestDate_Weekday3(t *testing.T) {
-	testDate := Date{82075}
-
-	expectedWeekday := duodi
-	actualWeekday := testDate.Weekday()
-
-	if expectedWeekday != actualWeekday {
-		t.Error("Expected:\t", expectedWeekday, "\tActual:\t", actualWeekday)
+		if tc.expectedWeekday != actualWeekday {
+			t.Error("Expected:\t", tc.expectedWeekday, "\tActual:\t", actualWeekday)
+		}
 	}
 }
 
 func TestWeekday_String(t *testing.T) {
-	testDate := NewDate(226, Prairial, 3)
-
-	expectedWeekday := "tridi"
-	actualWeekday := testDate.Weekday().String()
-
-	if expectedWeekday != actualWeekday {
-		t.Error("Expected:\t", expectedWeekday, "\tActual:\t", actualWeekday)
+	testCases := []struct {
+		testDate        Date
+		expectedWeekday string
+	}{
+		{
+			testDate:        NewDate(226, Prairial, 3),
+			expectedWeekday: "tridi",
+		},
+		{
+			testDate:        NewDate(226, Prairial, 2),
+			expectedWeekday: "duodi",
+		},
 	}
-}
 
-func TestWeekday_String2(t *testing.T) {
-	testDate := NewDate(226, Prairial, 2)
+	for _, tc := range testCases {
+		actualWeekday := tc.testDate.Weekday().String()
 
-	expectedWeekday := "duodi"
-	actualWeekday := testDate.Weekday().String()
-
-	if expectedWeekday != actualWeekday {
-		t.Error("Expected:\t", expectedWeekday, "\tActual:\t", actualWeekday)
+		if tc.expectedWeekday != actualWeekday {
+			t.Error("Expected:\t", tc.expectedWeekday, "\tActual:\t", actualWeekday)
+		}
 	}
 }
 
 func TestDate_String(t *testing.T) {
-	testDate := Date{82074}
+	testCases := []struct {
+		testDate       Date
+		expectedString string
+	}{
+		{
+			testDate:       Date{82074},
+			expectedString: "21 Prairial CCXXV",
+		},
+	}
 
-	expected := "21 Prairial CCXXV"
-	actual := testDate.String()
+	for _, tc := range testCases {
+		actual := tc.testDate.String()
 
-	if actual != expected {
-		t.Error("Expected:\t", expected, "\tActual:\t", actual)
+		if actual != tc.expectedString {
+			t.Error("Expected:\t", tc.expectedString, "\tActual:\t", actual)
+		}
 	}
 }
 
 func TestDate_IsLeapYear(t *testing.T) {
-	testDate := Date{4386}
-
-	actual := testDate.IsLeapYear()
-	expected := false
-
-	if actual != expected {
-		t.Error("Expected:\t", expected, "\tActual:\t", actual)
+	testCases := []struct{
+		testDate Date
+		expected bool
+	}{
+		{
+			testDate: Date{4386},
+			expected: false,
+		},
+		{
+			testDate : Date{4020},
+			expected : true,
+		},
+		{
+			testDate : Date{82078},
+			expected : false,
+		},
+		{
+			testDate : Date{81713},
+			expected : true,
+		},
 	}
-}
 
-func TestDate_IsLeapYear2(t *testing.T) {
-	testDate := Date{4020}
+	for _, tc := range testCases {
+		actual := tc.testDate.IsLeapYear()
 
-	actual := testDate.IsLeapYear()
-	expected := true
-
-	if actual != expected {
-		t.Error("Expected:\t", expected, "\tActual:\t", actual)
-	}
-}
-
-func TestDate_IsLeapYear3(t *testing.T) {
-	testDate := Date{82078}
-
-	actual := testDate.IsLeapYear()
-	expected := false
-
-	if actual != expected {
-		t.Error("Expected:\t", expected, "\tActual:\t", actual)
-	}
-}
-
-func TestDate_IsLeapYear4(t *testing.T) {
-	testDate := Date{81713}
-
-	actual := testDate.IsLeapYear()
-	expected := true
-
-	if actual != expected {
-		t.Error("Expected:\t", expected, "\tActual:\t", actual)
+		if actual != tc.expected {
+			t.Error("Expected:\t", tc.expected, "\tActual:\t", actual)
+		}
 	}
 }
 
 func TestDate_Day(t *testing.T) {
-	testDate := Date{82174}
-
-	actual := testDate.Day()
-	expected := 1
-
-	if actual != expected {
-		t.Error("Expected:\t", expected, "\tActual:\t", actual, "\tDay of year", testDate.DayOfYear())
+	testCases := []struct{
+		testDate Date
+		expectedDate int
+	}{
+		{
+			testDate: Date{82174},
+			expectedDate: 1,
+		},
+		{
+			testDate: Date{82175},
+			expectedDate: 2,
+		},
+		{
+			testDate: Date{82176},
+			expectedDate: 3,
+		},
 	}
-}
 
-func TestDate_Day2(t *testing.T) {
-	testDate := Date{82175}
+	for _, tc := range testCases {
+		actual := tc.testDate.Day()
 
-	actual := testDate.Day()
-	expected := 2
-
-	if actual != expected {
-		t.Error("Expected:\t", expected, "\tActual:\t", actual, "\tDay of year", testDate.DayOfYear())
+		if actual != tc.expectedDate {
+			t.Error("Expected:\t", tc.expectedDate, "\tActual:\t", actual, "\tDay of year", tc.testDate.DayOfYear())
+		}
 	}
-}
 
-func TestDate_Day3(t *testing.T) {
-	testDate := Date{82176}
-
-	actual := testDate.Day()
-	expected := 3
-
-	if actual != expected {
-		t.Error("Expected:\t", expected, "\tActual:\t", actual, "\tDay of year", testDate.DayOfYear())
-	}
 }
 
 func TestDate_DateFromTime(t *testing.T) {
-	date := time.Date(2018, time.May, 21, 4, 0, 0, 0, time.Local)
-
-	testDate := DateFromTime(date)
-
-	expectedStr := "2 Prairial CCXXVI"
-	actualStr := testDate.String()
-
-	if actualStr != expectedStr {
-		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate", date.String())
+	testCases := []struct{
+		gregorianDate time.Time
+		expectedStr string
+	}{
+		{
+			gregorianDate: time.Date(2018, time.May, 21, 4, 0, 0, 0, time.Local),
+			expectedStr : "2 Prairial CCXXVI",
+		},
+		{
+			gregorianDate: time.Date(1792, time.September, 22, 0, 0, 0, 0, time.Local),
+			expectedStr : "1 Vendémiaire I",
+		},
 	}
-}
 
-func TestDate_DateFromTime2(t *testing.T) {
-	date := time.Date(1792, time.September, 22, 0, 0, 0, 0, time.Local)
+	for _, tc := range testCases {
+		actualStr := DateFromTime(tc.gregorianDate).String()
 
-	testDate := DateFromTime(date)
-
-	expectedStr := "1 Vendémiaire I"
-	actualStr := testDate.String()
-
-	if actualStr != expectedStr {
-		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate", date.String())
+		if actualStr != tc.expectedStr {
+			t.Error("Expected:\t", tc.expectedStr, "\tActual:\t", actualStr, "\tDate", tc.gregorianDate.String())
+		}
 	}
 }
 
@@ -520,45 +403,34 @@ func TestMonth_String(t *testing.T) {
 }
 
 func TestRuralDay(t *testing.T) {
-	testDate := NewDate(226, Messidor, 5)
+	testCases := []struct{
+		testDate Date
+		expectedStr string
+	}{
+		{
+			testDate: NewDate(226, Messidor, 5),
+			expectedStr : "Mulet",
+		},
+		{
+			testDate : NewDate(1, Vendémiaire, 1),
+			expectedStr : "Raisin",
+		},
+		{
+			testDate : NewDate(1, Complémentaires, 1),
+			expectedStr : "",
+		},
+		{
+			testDate : NewDate(226, Fructidor, 30),
+			expectedStr : "Panier",
+		},
 
-	expectedStr := "Mulet"
-	actualStr := testDate.RuralDay()
-
-	if actualStr != expectedStr {
-		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr)
 	}
-}
 
-func TestRuralDay2(t *testing.T) {
-	testDate := NewDate(1, Vendémiaire, 1)
+	for _, tc := range testCases {
+		actualStr := tc.testDate.RuralDay()
 
-	expectedStr := "Raisin"
-	actualStr := testDate.RuralDay()
-
-	if actualStr != expectedStr {
-		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate")
-	}
-}
-
-func TestRuralDay3(t *testing.T) {
-	testDate := NewDate(1, Complémentaires, 1)
-
-	expectedStr := ""
-	actualStr := testDate.RuralDay()
-
-	if actualStr != expectedStr {
-		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate")
-	}
-}
-
-func TestRuralDay4(t *testing.T) {
-	testDate := NewDate(226, Fructidor, 30)
-
-	expectedStr := "Panier"
-	actualStr := testDate.RuralDay()
-
-	if actualStr != expectedStr {
-		t.Error("Expected:\t", expectedStr, "\tActual:\t", actualStr, "\tDate")
+		if actualStr != tc.expectedStr {
+			t.Error("Expected:\t", tc.expectedStr, "\tActual:\t", actualStr)
+		}
 	}
 }
