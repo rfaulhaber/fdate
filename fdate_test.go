@@ -434,3 +434,81 @@ func TestRuralDay(t *testing.T) {
 		}
 	}
 }
+
+func TestDateConstruction(t *testing.T) {
+	testCases := []struct {
+		testYear     int
+		testMonth    Month
+		testDay      int
+		expectedDate Date
+	}{
+		{
+			expectedDate: Date{82061},
+
+			testYear:  225,
+			testMonth: Prairial,
+			testDay:   8,
+		},
+		{
+			expectedDate: Date{0},
+
+			testYear:  1,
+			testMonth: Vendémiaire,
+			testDay:   1,
+		},
+		{
+			expectedDate: Date{2603},
+
+			// The 18th Brumaire, when Napoleon staged his famous coup, ending the Revolution
+			testYear:  8,
+			testMonth: Brumaire,
+			testDay:   18,
+		},
+		{
+			expectedDate: Date{673},
+
+			// The 9th Thermidor, when the Convention turned against Robespierre
+			testYear:  2,
+			testMonth: Thermidor,
+			testDay:   9,
+		},
+		{
+			expectedDate: Date{81814},
+
+			testYear:  225,
+			testMonth: Vendémiaire,
+			testDay:   1,
+		},
+		{
+			expectedDate: Date{81813},
+
+			testYear:  224,
+			testMonth: Complémentaires,
+			testDay:   5,
+		},
+		{
+			expectedDate: Date{81810},
+
+			testYear:  224,
+			testMonth: Complémentaires,
+			testDay:   2,
+		},
+    }
+
+    for _, tc := range testCases {
+        constructedDate := NewDate(tc.testYear, tc.testMonth, tc.testDay)
+
+        if constructedDate.Year() != tc.expectedDate.Year() {
+            t.Errorf("Expected %d but got %d", constructedDate.Year(), tc.expectedDate.Year())
+        }
+
+        if constructedDate.Month() != tc.expectedDate.Month() {
+            t.Errorf("Expected %d but got %d", constructedDate.Month(), tc.expectedDate.Month())
+        }
+
+        if constructedDate.Day() != tc.expectedDate.Day() {
+            t.Errorf("Expected %d but got %d", constructedDate.Day(), tc.expectedDate.Day())
+        }
+    }
+
+}
